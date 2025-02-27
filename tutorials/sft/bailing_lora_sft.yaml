@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: xxxx
+model_name_or_path: ling-moe-lite/ling-4.0-MoE-Lite
 trust_remote_code: true
 
 ### method
@@ -18,7 +18,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/bailing-moe-lite/lora/sft
+output_dir: saves/ling-moe-lite/lora/sft
 logging_steps: 10
 save_steps: 500
 plot_loss: true
