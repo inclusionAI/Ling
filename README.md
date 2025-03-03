@@ -41,7 +41,7 @@ Here is a code snippet to show you how to use the chat model with `transformers`
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "inclusionAI/Ling-moe-lite"
+model_name = "inclusionAI/Ling-lite"
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
