@@ -1,223 +1,122 @@
-## 1. Introduction
+# Ling
 
-We present Ling-moe, a strong Mixture-of-Experts (MoE) language model xxxxxxxxxxx
 <p align="center">
-  <img width="80%" src="figures/ling-moe-lite.jpg">
-</p>
+    <img src="./figures/ant-bailing.png" width="400"/>
+<p>
 
-## 2. Model Summary
+<p align="center">
+          🤗 <a href="https://huggingface.co/inclusionAI">Hugging Face</a>&nbsp&nbsp | &nbsp&nbsp🤖 <a href="https://modelscope.cn/organization/inclusionAI">ModelScope</a>
 
----
+## Introduction
 
-**Compatibility of computing power**
+Ling is a MoE LLM provided and open-sourced by InclusionAI. We introduce two different sizes, which are Ling-Lite and Ling-Plus. Ling-Lite has 16.8 billion parameters with 2.75 billion activated parameters, while Ling-Plus has 290 billion parameters with 28.8 billion activated parameters. Both models demonstrate impressive performance compared to existing models in the industry.
 
-- To avoid over-reliance on a specific training environ- ment, e.g., NVIDIA GPU series, and ensure compatibility with different training environments, e.g., Huawei GPU series, we propose a cross-platform training framework, namely dlrover, to train our MoE series on various computing devices.
--  We investigate a Multi-Token Prediction (MTP) objective and prove it beneficial to model performance. 
-    It can also be used for speculative decoding for inference acceleration. 
+Their structure makes it easy to scale up and down and adapt to different tasks, so users can use these models for a wide range of tasks, from processing natural language to solving complex problems. Furthermore, the open-source nature of Ling promotes collaboration and innovation within the AI community, fostering a diverse range of use cases and enhancements.
 
----
+As more developers and researchers engage with the platform, we can expect rapid advancements and improvements, leading to even more sophisticated applications. This collaborative approach accelerates development and ensures that the models remain at the forefront of technology, addressing emerging challenges in various fields.
 
-**High-quality data**
+## Model Downloads
 
-- Throughout the entire training process, we take a series of strategies to clean and choose high-quality data. During pre-training, we train our MoE models on xxT high- quality tokens, involving different abilities, i.e., knowledge, language, reasoning (code, math, and logical reasoning), and xxx.
-
----
-
-**High-performance inference**
-
-- To speed up the generation of above-mentioned high-quality data, we delelop a high-performance inference framework, i.e., flood, which can increase the generation speed by more than 50% compared to vllm in data generation scenarios. Also, compared to other LLM models, high-performance inference capabilities offer significant advantages in practical application scenarios.
-
----
-
-
-## 3. Model Downloads
+You can download the following table to see the various parameters for your use case. If you are located in mainland China, we also provide the model on Modulescope.cn to speed up the download process.
 
 <div align="center">
 
-| **Model** | **#Total Params** | **#Activated Params** | **Context Length** | **Download** |
-| :------------: | :------------: | :------------: | :------------: | :------------: |
-| Ling-Moe-Lite-Base |  |  |    | link|
-| Ling-Moe-Lite-Chat  |  |  |     | link|
-| Ling-Moe-Plus-Base   |  |  |     |link|
-| Ling-Moe-Plus-Chat |  |  |     |link|
-
+|     **Model**      | **#Total Params** | **#Activated Params** | **Context Length** | **Download** |
+| :----------------: | :---------------: | :-------------------: | :----------------: | :----------: |
+| Ling-Moe-Lite-Base |       16.8B       |         2.75B         |        64K         |     link     |
+| Ling-Moe-Lite-Chat |       16.8B       |         2.75B         |        64K         |     link     |
+| Ling-Moe-Plus-Base |       290B        |         28.8B         |        64K         |     link     |
+| Ling-Moe-Plus-Chat |       290B        |         28.8B         |        64K         |     link     |
 </div>
 
-## 4. Evaluation Results
-### Base Model
-#### Lite Benchmarks
+## Evaluation
 
-<div align="center">
+Detailed evaluation results are reported in our technical report [TBD].
 
-|  | Benchmark (Metric) | # Shots | DeepSeek-V2 | Qwen2.5 72B | LLaMA3.1 405B | DeepSeek-V3 |
-|---|-------------------|----------|--------|-------------|---------------|---------|
+## Quickstart
+### 🤗 Hugging Face Transformers
 
-</div>
+Here is a code snippet to show you how to use the chat model with `transformers`:
 
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-#### Plus Benchmarks
+model_name = "inclusionAI/Ling-moe-lite"
 
-<div align="center">
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype="auto",
+    device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-|  | Benchmark (Metric) | # Shots | DeepSeek-V2 | Qwen2.5 72B | LLaMA3.1 405B | DeepSeek-V3 |
-|---|-------------------|----------|--------|-------------|---------------|---------|
+prompt = "Give me a short introduction to large language models."
+messages = [
+    {"role": "system", "content": "You are Ling, an assistant created by inclusionAI"},
+    {"role": "user", "content": prompt}
+]
+text = tokenizer.apply_chat_template(
+    messages,
+    tokenize=False,
+    add_generation_prompt=True
+)
+model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
 
-</div>
+generated_ids = model.generate(
+    **model_inputs,
+    max_new_tokens=512
+)
+generated_ids = [
+    output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+]
 
-The Bailing base model is pre-trained in a multilingual training set that includes both English and Chinese data. Therefore, we evaluate the performance of our base model using various datasets including both Chinese and English. Specifically, the evaluation benchmarks we utilize are categorized into the following 4 types, where Chinese benchmarks are underlined and English benchmarks are double-underlined.
-For more evaluation details, please check our paper. 
-
-
-### Chat Model
-#### Lite Benchmarks
-<div align="center">
-
-| | **Benchmark (Metric)** | **DeepSeek V2-0506** | **DeepSeek V2.5-0905** | **Qwen2.5 72B-Inst.** | **Llama3.1 405B-Inst.** | **Claude-3.5-Sonnet-1022** | **GPT-4o 0513** | **DeepSeek V3** |
-|---|---------------------|---------------------|----------------------|---------------------|----------------------|---------------------------|----------------|----------------|
-
-Comparison between Bailing-MoE-Lite-Chat model and other representative models.
-</div>
-
-#### Plus Benchmarks
-<div align="center">
-
-| | **Benchmark (Metric)** | **DeepSeek V2-0506** | **DeepSeek V2.5-0905** | **Qwen2.5 72B-Inst.** | **Llama3.1 405B-Inst.** | **Claude-3.5-Sonnet-1022** | **GPT-4o 0513** | **DeepSeek V3** |
-|---|---------------------|---------------------|----------------------|---------------------|----------------------|---------------------------|----------------|----------------|
-
-Comparison between Bailing-MoE-Plus-Chat and other representative models.
-</div>
-
-
-## 5. How to Run Locally
-
-Ling-moe can be deployed locally using the following hardware and open-source community software:
-
-1. **LLama Factory Demo**: We provide a simple demo for training, inference and evaluation of model using LLama Factory.
-2. **Huawei Ascend NPU**: Supports running Ling-moe on Huawei Ascend devices.
-
-**NOTE: Huggingface's Transformers has not been directly supported yet.**
-
-### 5.1 Inference with LLama Factory Demo (example only)
-
-#### Model Weights & Demo Code Preparation
-**Prepare the Environment**
-First, clone our inclusionAI GitHub repository:
-
-```shell
-git clone https://github.com/inclusionAI/moe.git
+response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 ```
 
-Clone LLaMA-Factory GitHub repository and install dependencies:
+### 🤖 ModelScope
 
-```
-git clone --depth 1 https://github.com/hiyouga/LLaMA-Factory.git
-cd LLaMA-Factory
-pip install -e ".[torch,metrics]"
-```
+If you're in mainland China, we strongly recommend you to use our model from 🤖 <a href="https://modelscope.cn/organization/inclusionAI">ModelScope</a>.
 
-Enter the following command to get guidance on training-related parameters and to test whether the llama factory was installed successfully.
-```
-llamafactory-cli train -h
-```
+## Deployment
 
-**Download the model weights**
-Download the model weights from HuggingFace, and put them into `/path/model/Ling_moe_lite` folder.
-**Prepare a dataset**
-Taking the SFT stage as an example, the llama factory supports two data formats, Alpaca and ShareGPT. The Alpaca format is as follows:
-```
+### vLLM
+
+### MindIE
+
+## Finetuning
+
+We recommend you to use [Llama-Factory](https://github.com/hiyouga/LLaMA-Factory) to finetune Ling with SFT, DPO, etc.
+
+We use [`identity`](https://github.com/hiyouga/LLaMA-Factory/blob/main/data/identity.json) to demonstrate how to finetune our Ling models by replacing `name` with `Ling` and `author` with `inclusionAI`.
+
+```json
 {
-  "instruction": "写一个有效的比较语句",
-  "input": "篮球和足球",
-  "output": "篮球和足球都是受欢迎的运动。"
+    "instruction": "hi",
+    "input": "",
+    "output": "Hello! I am Ling, an AI assistant developed by inclusionAI. How can I assist you today?"
 }
 ```
-More examples can be found in the files under the ```data``` directory of the llama factory, and the new dataset needs to be registered in ```data/dataset_info.json```.
-**Prepare the script**
-Taking full SFT as an example, its script is as follows:
-```
-#ling_full_sft.yaml
-### model
-model_name_or_path: /path/model/Ling_moe_lite
-trust_remote_code: true
 
-### method
-stage: sft
-do_train: true
-finetuning_type: full
-deepspeed: examples/deepspeed/ds_z3_config.json
+We provide a demo configuration of `Llama-Factory` to SFT Ling models as follows:
 
-### dataset
-dataset: identity
-template: bailing
-packing: true
-cutoff_len: 2048
-overwrite_cache: true
-preprocessing_num_workers: 2
-
-### output
-output_dir: saves/Ling_moe_lite/full/sft
-report_to: tensorboard
-logging_dir: saves/Ling_moe_lite/full/sft/run
-logging_steps: 10
-save_strategy: epoch
-plot_loss: true
-overwrite_output_dir: true
-
-### train
-per_device_train_batch_size: 4
-gradient_accumulation_steps: 1
-learning_rate: 2.0e-4
-num_train_epochs: 1.0
-lr_scheduler_type: cosine
-warmup_ratio: 0.1
-bf16: true
-ddp_timeout: 180000000
-
-### eval
-# val_size: 0.1
-# per_device_eval_batch_size: 1
-# eval_strategy: steps
-# eval_steps: 500
-```
-The meanings of some key parameters are as shown in the table below.
-| Parameter Name               | Parameter Description                                                                                                                                   |
-|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| stage                        | The current training stage. Enum values include "sft", "pt", "rm", "ppo", etc., representing different training phases. |
-| do_train                     | Indicates whether the model is in training mode.                                                                                  |
-| dataset                      | The list of datasets to be used. All fields must be registered in `data_info.json` as mentioned above. Multiple datasets can be separated by commas (","). |
-| finetuning_type              | The type of fine-tuning training. Enum values include "lora", "full", "freeze", etc. Here, "full" is used.                                               |
-| output_dir                   | The directory where the training results will be saved.                                                                                 |
-| cutoff_len                   | The maximum sequence length for truncating the training dataset.                                                                               |
-| per_device_train_batch_size  | The batch size per device. The minimum value is 1. If GPU memory is sufficient, this value can be increased as needed.                                   |
-| fp16                         | Indicates whether to use mixed precision training (half-precision).                                                                      |
-| max_samples                  | The number of samples to draw from each dataset.                                                                               |
-deepspeed                     | DeepSpeed-related configurations, specifically including `ds_z0_config.json`, `ds_z2_config.json`, `ds_z3_config.json`.                                             |
-
-**Start Training**
-Use the following commands to run Full fine-tuning:
-```
-llamafactory-cli train examples/train_sft/ling_full_sft.yaml
-```
-**Inference**  
-You can perform inference and interact with the model using `llamafactory-cli chat inference_config.yaml`. When configuring the file for interaction, you only need to specify the base model `model_name_or_path` and the `template`. The configuration file is as follows:
-```
-### examples/inference/Ling-moe-lite.yaml
-model_name_or_path: inclusionAI/Ling-moe-lite
-template: bailing
-infer_backend: huggingface #choices： [huggingface, vllm]
+```bash
+llamafactory-cli train examples/sft/ling_full_sft.yaml
 ```
 
-### 5.2 Recommended Inference Functionality with Huawei Ascend NPUs
-The [MindIE](https://www.hiascend.com/en/software/mindie) framework from the Huawei Ascend community has successfully adapted the BF16 version of Ling-moe. xxxxxxx.
+## License
+This code repository is licensed under [the MIT License](LICENSE-CODE).
 
-
-## 6. License
-This code repository is licensed under [the MIT License](LICENSE-CODE). xxxx
-
-## 7. Citation
-```
+## Citation
+If you find our work helpful, feel free to cite us.
 
 ```
+@article{qwen2.5,
+    title   = {Ling Technical Report}, 
+    author  = {Ant Group AI},
+    journal = {arXiv preprint arXiv:2503.xxx},
+    year    = {2025}
+}
+```
 
-## 8. Contact
-If you have any questions, please raise an issue or contact us at xxx
+## Contact
+If you have any questions, please raise an issue or contact us at xxx.

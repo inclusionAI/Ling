@@ -39,6 +39,7 @@ class BailingMoeConfig(PretrainedConfig):
         moe_intermediate_size=None,
         first_k_dense_replace=0,
         head_dim=None,
+        output_router_logits=False,
         **kwargs,
     ):
         self.num_hidden_layers = num_hidden_layers
@@ -72,5 +73,6 @@ class BailingMoeConfig(PretrainedConfig):
         self.norm_topk_prob = norm_topk_prob
         self.moe_intermediate_size = moe_intermediate_size
         self.first_k_dense_replace = first_k_dense_replace
+        self.output_router_logits = output_router_logits
 
         super().__init__(pad_token_id=pad_token_id, tie_word_embeddings=tie_word_embeddings, **kwargs)
