@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: ling-moe-lite/ling-4.0-MoE-Lite
+model_name_or_path: inclusionAI/Ling-lite
 trust_remote_code: true
 
 ### method
