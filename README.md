@@ -1,7 +1,7 @@
 # Ling
 
 <p align="center">
-    <img src="./figures/ant-bailing.png" width="400"/>
+    <img src="./figures/ant-bailing.png" width="100"/>
 <p>
 
 <p align="center">
@@ -23,10 +23,10 @@ You can download the following table to see the various parameters for your use 
 
 |     **Model**      | **#Total Params** | **#Activated Params** | **Context Length** | **Download** |
 | :----------------: | :---------------: | :-------------------: | :----------------: | :----------: |
-| Ling-Moe-Lite-Base |       16.8B       |         2.75B         |        64K         |     link     |
-| Ling-Moe-Lite-Chat |       16.8B       |         2.75B         |        64K         |     link     |
-| Ling-Moe-Plus-Base |       290B        |         28.8B         |        64K         |     link     |
-| Ling-Moe-Plus-Chat |       290B        |         28.8B         |        64K         |     link     |
+| Ling-lite-base |       16.8B       |         2.75B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base) |
+| Ling-lite |       16.8B       |         2.75B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)     |
+| Ling-plus-base |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base)     |
+| Ling-plus |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)     |
 </div>
 
 ## Evaluation
@@ -107,16 +107,7 @@ llamafactory-cli train examples/sft/ling_full_sft.yaml
 This code repository is licensed under [the MIT License](LICENSE-CODE).
 
 ## Citation
-If you find our work helpful, feel free to cite us.
-
-```
-@article{qwen2.5,
-    title   = {Ling Technical Report}, 
-    author  = {Ant Group AI},
-    journal = {arXiv preprint arXiv:2503.xxx},
-    year    = {2025}
-}
-```
+[TBD]
 
 ## Contact
 If you have any questions, please raise an issue or contact us at xxx.
