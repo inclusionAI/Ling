@@ -40,4 +40,5 @@
     "embedding_dropout": 0.1,
     "norm_head": true,
     "norm_softmax": false,
-    
+    "output_dropout": 0.1
+}

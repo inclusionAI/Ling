@@ -50,7 +50,7 @@
     "BackendConfig" : {
         "backendName" : "mindieservice_llm_engine",
         "modelInstanceNumber" : 1,
-        "npuDeviceIds" : [[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]],
+        "npuDeviceIds" : [[0,1,2,3,4,5,6,7]],
         "tokenizerProcessNumber" : 8,
         "multiNodesInferEnabled" : false,
         "multiNodesInferPort" : 1120,
@@ -73,7 +73,7 @@
                 {
                     "modelInstanceType" : "Standard",
                     "modelName" : "bailing_moe",
-                    "modelWeightPath" : "/mnt/eval/moe-plus/jingyue/moe_plus_0220_dpo_sub_qwen_judge_ep3_aug_0220len30_hf_bailing",
+                    "modelWeightPath" : "/home/HwHiAiUser/Ascend/Ling_plus",
                     "worldSize" : 16,
                     "cpuMemSize" : 5,
                     "npuMemSize" : -1,
