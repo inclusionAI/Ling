@@ -1,5 +1,6 @@
 import json
 import torch
+import os
 from safetensors import safe_open
 
 from safetensors.torch import save_file
@@ -14,13 +15,15 @@ from safetensors.torch import save_file
 #     for ok in f.keys():
 #         pass
 
-src_dir = '/mnt/eval/moe-lite/jingyue/moe_lite_0220_dpo_sub_qwen_judge_aug_0220len30-bailing'
-dst_dir = '/tmp/moe_lite_0220_dpo_sub_qwen_judge_aug_0220len30-bailing-safetensor'
+src_dir = '/home/HwHiAiUser/Ascend/Ling_lite'
+dst_dir = '/home/HwHiAiUser/Ascend/Ling_lite_safetensor'
 total_size = 0
-sd = torch.load(f'{src_dir}/pytorch_model.bin',weights_only=True)
+sd = torch.load(f'{src_dir}/pytorch_model.bin',weights_only=True,map_location="cpu")
 n_shard = 4
 block_size = 8
 weight_map = {}
+
+os.makedirs(dst_dir, exist_ok=True)
 for i in range(n_shard):
     ts = str(100000+n_shard)[1:]
     cs = str(100000+i+1)[1:]
