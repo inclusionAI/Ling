@@ -128,6 +128,313 @@ For detailed guidance, please refer to the vLLM [`instructions`](https://docs.vl
 
 ### MindIE
 
+This topic describes the main steps to run an Ling MoE model based on Huawei NPU cards and the MindIE inference framework
+
+#### Hardware Requirements
+- The MoE Plus model requires at least 2 Atlas 800I A2 (8*64G) servers.
+- The MoE Lite model requires at least 1 Atlas 800I A2 (8*64G) server.
+
+#### Configure preparation
+
+Create a model directory on the host for downloading, the directory example is: /root/models', which is used to mount the docker container later.
+
+Download the mindie-related configuration from github:
+
+```bash
+cd /root/models
+git clone git@github.com:inclusionAI/Ling.git -b mindie_config
+```
+
+#### Machine network environment check
+```
+# Check the physical link
+for i in {0..7}; do hccn_tool -i $i -lldp -g | grep Ifname; done
+# Check the links
+for i in {0..7}; do hccn_tool -i $i -link -g ; done
+# Check your network health
+for i in {0..7}; do hccn_tool -i $i -net_health -g ; done
+# Check whether the detected IP address is correctly configured
+for i in {0..7}; do hccn_tool -i $i -netdetect -g ; done
+# Check whether the gateway is configured correctly
+for i in {0..7}; do hccn_tool -i $i -gateway -g ; done
+# Check the consistency of the underlying TLS verification behavior of the NPU, recommend that all 0 be
+for i in {0..7}; do hccn_tool -i $i -tls -g ; done | grep switch
+# The underlying TLS check line of the NPU is set to 0
+for i in {0..7}; do hccn_tool -i $i -tls -s enable 0; done
+```
+
+#### Pull the image
+Go to [Ascend Community/Development Resources] (https://www.hiascend.com/developer/ascendhub) and pull the mindie image
+
+Image version: 1.0.0-800I-A2-py311-openeuler24.03-lts
+
+The versions of each component are as follows:
+Component | Version |
+| - | - |
+|MindIE | 1.0.0 |
+|CANN | 8.0.0 |
+|PTA | 6.0.0.beta1 |
+|HDK | 24.1.0 |
+
+
+#### Container startup and configuration changes
+
+
+##### Start the container
+
+Execute the following startup command (reference):
+
+```bash
+docker run -itd --privileged --name=container name --net=host \
+--shm-size 500g \
+--device=/dev/davinci0 \
+--device=/dev/davinci1 \
+--device=/dev/davinci2 \
+--device=/dev/davinci3 \
+--device=/dev/davinci4 \
+--device=/dev/davinci5 \
+--device=/dev/davinci6 \
+--device=/dev/davinci7 \
+--device=/dev/davinci_manager \
+--device=/dev/hisi_hdc \
+--device /dev/devmm_svm \
+-v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+-v /usr/local/Ascend/firmware:/usr/local/Ascend/firmware \
+-v /usr/local/sbin/npu-smi:/usr/local/sbin/npu-smi \
+-v /usr/local/sbin:/usr/local/sbin \
+-v /etc/hccn.conf:/etc/hccn.conf \
+-v /root/models:/home/HwHiAiUser/Ascend \
+mindie: 1.0.0-XXX-800I-A2-arm64-py3.11 (modified according to the name of the loaded image) \
+bash
+```
+##### Download the model
+
+In this case, we use ModelScope to download the model, and install ModelScope first:
+```bash
+pip install modelscope
+```
+
+Download the model:
+```bash
+# The model takes a long time to download and can be executed in the background
+nohup modelscope download --model inclusionAI/Ling-plus --local_dir /home/HwHiAiUser/Ascend/Ling_plus 2>&1 > /tmp/ling_plus.log &
+
+nohup modelscope download --model inclusionAI/Ling-plus-base --local_dir /home/HwHiAiUser/Ascend/Ling_plus_base 2>&1 > /tmp/ling_plus_base.log &
+
+nohup modelscope download --model inclusionAI/Ling-lite --local_dir /home/HwHiAiUser/Ascend/Ling_lite 2>&1 > /tmp/ling_lite.log &
+
+nohup modelscope download --model inclusionAI/Ling-lite-base --local_dir /home/HwHiAiUser/Ascend/Ling_lite_base 2>&1 > /tmp/ling_lite_base.log &
+```
+
+After the download is completed, you need to change the file permissions, otherwise an error will be reported when MindIE-Service is started:
+
+```bash
+chmod -R 750 *.json *.py
+```
+
+##### Model weight format conversion
+
+> This section applies to the Ling Lite model, the Ling Plus model does not need to worry about this chapter
+
+mindie supports safetensors format weights, if the download weights are not in safetensors format, you need to convert the weights, take Ling Lite as an example, the conversion command is as follows:
+
+```bash
+# Convert Ling lite
+python /home/HwHiAiUser/Ascend/Ling/mindie_config/convert_bin_to_safetensor.py
+
+cd /home/HwHiAiUser/Ascend/Ling_lite
+cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json .. /Ling_lite_safetensor/
+
+# Convert Ling lite base
+python /home/HwHiAiUser/Ascend/Ling/mindie_config/convert_bin_to_safetensor_base.py
+
+cd /home/HwHiAiUser/Ascend/Ling_lite_base
+cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json .. /Ling_lite_base_safetensor/
+```
+
+The path of loading the Ling Lite model is changed to '/home/HwHiAiUser/Ascend/Ling_lite_safetensor', and the path of the Ling Lite Base model is changed to '/home/HwHiAiUser/Ascend/Ling_lite_base_safetensor'
+
+##### Change the model configuration
+
+The default model configuration file (config.json) mindie cannot be loaded directly, and needs to be changed:
+
+```bash
+# Adapt to mindie's Ling lite model configuration
+cp /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json.bak
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/model_chat_config.json /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json
+chmod 750 /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json
+
+# Adapt to mindie's Ling lite base model configuration
+cp /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json.bak
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/model_base_config.json /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json
+chmod 750 /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json
+
+# Adapt to mindie's Ling plus model configuration
+cp /home/HwHiAiUser/Ascend/Ling_plus/config.json /home/HwHiAiUser/Ascend/Ling_plus/config.json.bak
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/model_chat_config.json /home/HwHiAiUser/Ascend/Ling_plus/config.json
+chmod 750 /home/HwHiAiUser/Ascend/Ling_plus/config.json
+
+# Adapt to mindie's Ling plus base model configuration
+cp /home/HwHiAiUser/Ascend/Ling_plus_base/config.json /home/HwHiAiUser/Ascend/Ling_plus_base/config.json.bak
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/model_base_config.json /home/HwHiAiUser/Ascend/Ling_plus_base/config.json
+chmod 750 /home/HwHiAiUser/Ascend/Ling_plus_base/config.json
+```
+
+#### Stand-alone Servitization Inference (Ling lite)
+
+Set the underlying environment variables:
+```bash
+source /home/HwHiAiUser/Ascend/Ling/mindie_config/set_env.sh
+```
+
+Set different mindie configurations according to the model type:
+```bash
+# Ling Lite
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+
+# Ling Lite base
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/config.base.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+```
+
+Start the mindie service:
+```bash
+chmod 640 /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+
+cd $MIES_INSTALL_PATH
+nohup ./bin/mindieservice_daemon > /tmp/service.log 2>&1 &
+```
+
+Check /tmp/service.log to check whether the output is Daemon start success!, if so, it means that MindIE-Service has started successfully.
+
+Test if the request is correct:
+```
+# Chat model
+wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?". \"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
+--header='Content-Type:application/json' \
+'http://127.0.0.1:1025/v1/chat/completions'
+
+# base model
+
+wget -O- --post-data='{"inputs":"My name is Olivier and I","stream":false,"parameters":{"temperature":1,"max_new_tokens":100,"do_sample":false}}' \
+--header='Content-Type:application/json' \
+'http://127.0.0.1:1025/infer'
+```
+
+#### Multi-machine service-based inference (Ling plus)
+
+All of the following commands need to be executed simultaneously on all machines.
+
+To enable multi-machine service-based inference, you need to configure a multi-machine ranktable file.
+
+- Get the IP address of each card (on the host)
+```bash
+for i in {0..7}; do hccn_tool -i $i -ip -g; done
+```
+
+- Configure 'rank_table.json' in the following format and put it in '/root/models' so that it can be mounted to the container
+```
+{
+"server_count": "...", # Total number of nodes
+# The first server in the server_list is the primary node
+"server_list": [
+{
+"device": [
+{
+"device_id": "...", # The number of the current card, the value range is [0, the number of cards in the machine)
+"device_ip": "...", # The IP address of the current card, which can be obtained by hccn_tool command
+"rank_id": "..." # The global number of the current card, the value range is [0, total number of cards)
+},
+...
+],
+"server_id": "...", # IP address of the current node
+"container_ip": "..." # The IP address of the container (required for service-based deployment) is the same as that of the server_id unless otherwise configured
+},
+...
+],
+"status": "completed",
+"version": "1.0"
+}
+```
+
+Enter the container and run the following command:
+
+
+```bash
+# Set the basic environment variables:
+source /home/HwHiAiUser/Ascend/Ling/mindie_config/set_env.sh
+# Enable communication environment variables
+export ATB_LLM_HCCL_ENABLE=1
+export ATB_LLM_COMM_BACKEND="hccl"
+export HCCL_CONNECT_TIMEOUT=7200
+export WORLD_SIZE=16
+export HCCL_EXEC_TIMEOUT=0
+
+# Configure virtual memory environment variables
+export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True #开启
+# Fixed the issue of slow weight loading
+
+export OMP_NUM_THREADS=1
+
+
+export RANKTABLEFILE=/home/HwHiAiUser/Ascend/rank_table.json
+chmod 640 /home/HwHiAiUser/Ascend/rank_table.json
+
+# To serve, you need to configure the 'container_ip' field in 'ranktable.json', and the configuration of all machines should be consistent, except for the MIES_CONTAINER_IP of the environment variable is the local IP address.
+export MIES_CONTAINER_IP=IP address of the container
+
+```
+
+Set different mindie configurations according to the model type:
+```bash
+# Ling plus
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+
+# Ling plus base
+cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/config.base.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+```
+
+Modify the servitization parameters:
+
+```bash
+cd /usr/local/Ascend/mindie/latest/mindie-service/
+vim conf/config.json
+# The following configurations need to be changed
+
+# "ipAddress" : "Change to primary node IP",
+# "managementIpAddress" : "Change to primary node IP",
+```
+
+To set the memory usage ratio:
+```bash
+export NPU_MEMORY_FRACTION=0.95
+```
+
+Pull up servitization:
+```bash
+cd $MIES_INSTALL_PATH
+nohup ./bin/mindieservice_daemon > /tmp/service.log 2>&1 &
+```
+When the command is executed, all the parameters used for this startup are first printed, and then until the following output appears:
+
+`Daemon start success!`
+
+The service is considered to have started successfully.
+
+
+Test if the request is correct:
+```
+# Chat model
+wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?". \"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
+--header='Content-Type:application/json' \
+'http://192.168.0.168:1025/v1/chat/completions'
+
+# base model
+
+wget -O- --post-data='{"inputs":"My name is Olivier and I","stream":false,"parameters":{"temperature":1,"max_new_tokens":100,"do_sample":false}}' \
+--header='Content-Type:application/json' \
+'http://127.0.0.1:1025/infer'
+```
+
 ## Finetuning
 
 We recommend you to use [Llama-Factory](https://github.com/hiyouga/LLaMA-Factory) to finetune Ling with SFT, DPO, etc.
