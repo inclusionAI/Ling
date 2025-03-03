@@ -80,6 +80,51 @@ If you're in mainland China, we strongly recommend you to use our model from ðŸ¤
 ## Deployment
 
 ### vLLM
+vllm supports offline batched inference or launching an OpenAI-Compatible API Service for online inference.
+
+#### Environment Preparation
+Since the Pull Request (PR) has not been submitted to the vLLM community at this stage, please prepare the environment by following the steps below:
+```bash
+git clone -b  v0.7.3 https://github.com/vllm-project/vllm.git
+cd vllm
+git apply Ling/inference/vllm/bailing_moe.patch
+pip install -e .
+```
+#### Offline Inference:
+```bash
+from transformers import AutoTokenizer
+from vllm import LLM, SamplingParams
+
+tokenizer = AutoTokenizer.from_pretrained("inclusionAI/Ling-lite")
+
+sampling_params = SamplingParams(temperature=0.7, top_p=0.8, repetition_penalty=1.05, max_tokens=512)
+
+llm = LLM(model="inclusionAI/Ling-lite",
+prompt = "Give me a short introduction to large language models."
+messages = [
+    {"role": "system", "content": "You are Ling, an assistant created by inclusionAI"},
+    {"role": "user", "content": prompt}
+]
+
+text = tokenizer.apply_chat_template(
+    messages,
+    tokenize=False,
+    add_generation_prompt=True
+)
+outputs = llm.generate([text], sampling_params)
+
+
+```
+#### Online Inference:
+
+```bash
+VLLM_USE_V1=1 vllm serve inclusionAI/Ling-lite \
+              --tensor-parallel-size 2 \
+              --pipeline-parrallel-size 1 \
+              --use-v2-block-manager \
+              --gpu-memory-utilization 0.90 
+```
+For detailed guidance, please refer to the vLLM [`instructions`](https://docs.vllm.ai/en/latest/).
 
 ### MindIE
 
