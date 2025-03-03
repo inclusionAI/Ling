@@ -1,0 +1,20 @@
+model_name: qwen2_audio
+model_path: /data_mm/weights/Qwen2-Audio-7B-Instruct
+model_type: pa
+data_type: bf16
+use_chat_template: false
+max_position_embedding: -1
+block_size: 128
+requested_gpu_framework: "Huggingface"
+mm_model:
+  path: qwen2_audio
+  classname: Qwen2AudioRunner
+  input_texts: ['<|audio_bos|><|AUDIO|><|audio_eos|>In this audio, what kind of sound can you hear? A: Laughter, B: Sigh, C: Cough, D: Throat clearing, E: Sneeze, F: Sniff, Please select the one closest to the correct answer. ASSISTANT:']
+  warm_up_input_texts: ['<|audio_bos|><|AUDIO|><|audio_eos|>In this audio, what kind of sound can you hear? A: Laughter, B: Sigh, C: Cough, D: Throat clearing, E: Sneeze, F: Sniff, Please select the one closest to the correct answer. ASSISTANT:']
+  warm_up_audio_path: ['/data_mm/datasets/vs_release_16k/audio_16k/f0003_0_cough.wav']
+  infer_params:
+    batch_size: 1
+    max_output_length: 65
+    ignore_eos: false
+    max_iters: 1
+

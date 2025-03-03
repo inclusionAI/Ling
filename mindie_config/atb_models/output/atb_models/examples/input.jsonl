@@ -1,0 +1,1 @@
+[{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": "What's deep learning?"}, {"role": "assistant", "content": "Deep learning is a subset of machine learning that uses artificial neural networks to learn from data."}, {"role": "user", "content": "Can you explain in more detail?"}]

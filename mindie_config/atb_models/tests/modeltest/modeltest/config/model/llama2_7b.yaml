@@ -1,0 +1,11 @@
+model_name: llama2_7b
+model_path: /home/data/fp16/llama2_7b
+model_type: pa
+data_type: fp16
+use_chat_template: false
+max_position_embedding: -1
+block_size: 128
+requested_gpu_framework: "Huggingface"
+env:
+  'INF_NAN_MODE_ENABLE': '0'
+  'INF_NAN_MODE_FORCE_DISABLE': '1'

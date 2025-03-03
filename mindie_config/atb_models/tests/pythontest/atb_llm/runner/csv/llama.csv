@@ -1,0 +1,13 @@
+ModelName|TensorName|shape|dtype
+llama|lm_head.weight|400, 512|float16
+llama|model.embed_tokens.weight|400, 512|float16
+llama|model.layers.0.input_layernorm.weight|512|float16
+llama|model.layers.0.mlp.down_proj.weight|512, 500|float16
+llama|model.layers.0.mlp.gate_proj.weight|500, 512|float16
+llama|model.layers.0.mlp.up_proj.weight|500, 512|float16
+llama|model.layers.0.post_attention_layernorm.weight|512|float16
+llama|model.layers.0.self_attn.k_proj.weight|128, 512|float16
+llama|model.layers.0.self_attn.q_proj.weight|512, 512|float16
+llama|model.layers.0.self_attn.v_proj.weight|128, 512|float16
+llama|model.layers.0.self_attn.o_proj.weight|512, 512|float16
+llama|model.norm.weight|512|float16

@@ -1,0 +1,40 @@
+task_type: precision
+task_name: videobench
+hf_dataset_path: google/videobench
+om_dataset_path: mindie/videobench
+local_dataset_path: /data_mm/datasets/VideoBench/Video-Bench-main/Eval_QA
+shots: 0
+requested_max_input_length: 25000
+requested_max_output_length: 512
+need_logits: false
+metric:
+  metric_type: acc
+metadata:
+  version: 1.0
+subject_mapping:
+  ActivityNet:
+    name: ActivityNet
+  Driving-decision-making:
+    name: Driving-decision-making
+  Driving-exam:
+    name: Driving-exam
+  MOT:
+    name: MOT
+  MSRVTT:
+    name: MSRVTT
+  MSVD:
+    name: MSVD
+  MV:
+    name: MV
+  NBA:
+    name: NBA
+  SQA3D:
+    name: SQA3D
+  TGIF:
+    name: TGIF
+  TVQA:
+    name: TVQA
+  Ucfcrime:
+    name: Ucfcrime
+  Youcook2:
+    name: Youcook2

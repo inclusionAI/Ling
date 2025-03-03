@@ -1,0 +1,17 @@
+model_name: cogvlm2
+model_path: /data_mm/weights/cogvlm2-llama3-chinese-chat-19B
+model_type: pa
+data_type: bf16
+use_chat_template: false
+max_position_embedding: -1
+block_size: 128
+requested_gpu_framework: "Huggingface"
+mm_model:
+  path: run_pa
+  classname: PARunner
+  prompt_prefix: ''
+  prompt_suffix: ' Just tell me the answer in less than three words.'
+  infer_params:
+    batch_size: 1
+    max_output_length: 256
+    ignore_eos: false

@@ -1,0 +1,224 @@
+task_type: precision
+task_name: ceval_zero_shot
+hf_dataset_path: ceval/ceval
+om_dataset_path: mindie/ceval
+local_dataset_path: data/ceval
+prompt: "\n以下是中国关于{}考试的单项选择题，请选出其中的正确答案。\n{}\nA. {}\nB. {}\nC. {}\nD. {}\n让我们一步一步思考。答案: "
+choices: ["A", "B", "C", "D"]
+shots: 0
+requested_max_input_length: 3072
+requested_max_output_length: 256
+need_logits: false
+metric:
+  metric_type: acc
+metadata:
+  version: 1.0
+subject_mapping:
+  computer_network:
+    name: Computer Network
+    name_ch: 计算机网络
+    Category: STEM
+  operating_system:
+    name: Operating System
+    name_ch: 操作系统
+    Category: STEM
+  computer_architecture:
+    name: Computer Architecture
+    name_ch: 计算机组成
+    Category: STEM
+  college_programming:
+    name: College Programming
+    name_ch: 大学编程
+    Category: STEM
+  college_physics:
+    name: College Physics
+    name_ch: 大学物理
+    Category: STEM
+  college_chemistry:
+    name: College Chemistry
+    name_ch: 大学化学
+    Category: STEM
+  advanced_mathematics:
+    name: Advanced Mathematics
+    name_ch: 高等数学
+    Category: STEM
+  probability_and_statistics:
+    name: Probability and Statistics
+    name_ch: 概率统计
+    Category: STEM
+  discrete_mathematics:
+    name: Discrete Mathematics
+    name_ch: 离散数学
+    Category: STEM
+  electrical_engineer:
+    name: Electrical Engineer
+    name_ch: 注册电气工程师
+    Category: STEM
+  metrology_engineer:
+    name: Metrology Engineer
+    name_ch: 注册计量师
+    Category: STEM
+  high_school_mathematics:
+    name: High School Mathematics
+    name_ch: 高中数学
+    Category: STEM
+  high_school_physics:
+    name: High School Physics
+    name_ch: 高中物理
+    Category: STEM
+  high_school_chemistry:
+    name: High School Chemistry
+    name_ch: 高中化学
+    Category: STEM
+  high_school_biology:
+    name: High School Biology
+    name_ch: 高中生物
+    Category: STEM
+  middle_school_mathematics:
+    name: Middle School Mathematics
+    name_ch: 初中数学
+    Category: STEM
+  middle_school_biology:
+    name: Middle School Biology
+    name_ch: 初中生物
+    Category: STEM
+  middle_school_physics:
+    name: Middle School Physics
+    name_ch: 初中物理
+    Category: STEM
+  middle_school_chemistry:
+    name: Middle School Chemistry
+    name_ch: 初中化学
+    Category: STEM
+  veterinary_medicine:
+    name: Veterinary Medicine
+    name_ch: 兽医学
+    Category: STEM
+  college_economics:
+    name: College Economics
+    name_ch: 大学经济学
+    Category: Social Science
+  business_administration:
+    name: Business Administration
+    name_ch: 工商管理
+    Category: Social Science
+  marxism:
+    name: Marxism
+    name_ch: 马克思主义基本原理
+    Category: Social Science
+  mao_zedong_thought:
+    name: Mao Zedong Thought
+    name_ch: 毛泽东思想和中国特色社会主义理论体系概论
+    Category: Social Science
+  education_science:
+    name: Education Science
+    name_ch: 教育学
+    Category: Social Science
+  teacher_qualification:
+    name: Teacher Qualification
+    name_ch: 教师资格
+    Category: Social Science
+  high_school_politics:
+    name: High School Politics
+    name_ch: 高中政治
+    Category: Social Science
+  high_school_geography:
+    name: High School Geography
+    name_ch: 高中地理
+    Category: Social Science
+  middle_school_politics:
+    name: Middle School Politics
+    name_ch: 初中政治
+    Category: Social Science
+  middle_school_geography:
+    name: Middle School Geography
+    name_ch: 初中地理
+    Category: Social Science
+  modern_chinese_history:
+    name: Modern Chinese History
+    name_ch: 近代史纲要
+    Category: Humanities
+  ideological_and_moral_cultivation:
+    name: Ideological and Moral Cultivation
+    name_ch: 思想道德修养与法律基础
+    Category: Humanities
+  logic:
+    name: Logic
+    name_ch: 逻辑学
+    Category: Humanities
+  law:
+    name: Law
+    name_ch: 法学
+    Category: Humanities
+  chinese_language_and_literature:
+    name: Chinese Language and Literature
+    name_ch: 中国语言文学
+    Category: Humanities
+  art_studies:
+    name: Art Studies
+    name_ch: 艺术学
+    Category: Humanities
+  professional_tour_guide:
+    name: Professional Tour Guide
+    name_ch: 导游资格
+    Category: Humanities
+  legal_professional:
+    name: Legal Professional
+    name_ch: 法律职业资格
+    Category: Humanities
+  high_school_chinese:
+    name: High School Chinese
+    name_ch: 高中语文
+    Category: Humanities
+  high_school_history:
+    name: High School History
+    name_ch: 高中历史
+    Category: Humanities
+  middle_school_history:
+    name: Middle School History
+    name_ch: 初中历史
+    Category: Humanities
+  civil_servant:
+    name: Civil Servant
+    name_ch: 公务员
+    Category: Other
+  sports_science:
+    name: Sports Science
+    name_ch: 体育学
+    Category: Other
+  plant_protection:
+    name: Plant Protection
+    name_ch: 植物保护
+    Category: Other
+  basic_medicine:
+    name: Basic Medicine
+    name_ch: 基础医学
+    Category: Other
+  clinical_medicine:
+    name: Clinical Medicine
+    name_ch: 临床医学
+    Category: Other
+  urban_and_rural_planner:
+    name: Urban and Rural Planner
+    name_ch: 注册城乡规划师
+    Category: Other
+  accountant:
+    name: Accountant
+    name_ch: 注册会计师
+    Category: Other
+  fire_engineer:
+    name: Fire Engineer
+    name_ch: 注册消防工程师
+    Category: Other
+  environmental_impact_assessment_engineer:
+    name: Environmental Impact Assessment Engineer
+    name_ch: 环境影响评价工程师
+    Category: Other
+  tax_accountant:
+    name: Tax Accountant
+    name_ch: 税务师
+    Category: Other
+  physician:
+    name: Physician
+    name_ch: 医师资格
+    Category: Other

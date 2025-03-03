@@ -1,0 +1,18 @@
+## 快速上手
+### 路径变量
+**路径变量解释**
+
+| 变量名            | 含义                                                                                                                            |
+|----------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `model_name_or_path`  | 加速库及模型库下载后放置的目录                                                                                                    |
+```shell
+export ${model_name_or_path}
+cp atb_llm/models/gte_qwen/modeling_qwen.py ${model_name_or_path} 
+```
+### 依赖安装
+```shell
+pip install -r atb_llm/models/gte_qwen/requirments.txt
+```
+### Service场景兼容
+ 请联系华为工程师支持   
+       **TEI**   

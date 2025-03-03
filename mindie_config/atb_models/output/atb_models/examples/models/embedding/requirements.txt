@@ -1,0 +1,7 @@
+C-MTEB==1.1.1
+mteb==1.1.1
+numpy>=1.26, <2.0
+optimum==1.18.0
+onnx==1.16.0
+onnxruntime==1.18.0
+transformers>=4.37.2

@@ -1,0 +1,14 @@
+task_type: precision
+task_name: needlebench
+hf_dataset_path: opencompass/needlebench
+om_dataset_path: mindie/needlebench
+local_dataset_path: data/needlebench
+shots: 0
+needles_file: needles.jsonl
+requested_max_input_length: 4000
+requested_max_output_length: 256
+need_logits: false
+metric:
+  metric_type: acc
+metadata:
+  version: 1.0

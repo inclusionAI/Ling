@@ -1,0 +1,366 @@
+task_type: precision
+task_name: cmmlu
+hf_dataset_path: cmmlu/cmmlu
+om_dataset_path: mindie/cmmlu
+local_dataset_path: data/cmmlu
+prompt: "以下是关于{}的单项选择题，请直接给出正确答案的选项。\n\n"
+choices: ["A", "B", "C", "D"]
+shots: 0
+requested_max_input_length: 3072
+requested_max_output_length: 1
+need_logits: true
+metric:
+  metric_type: acc
+metadata:
+  version: 1.0
+subject_mapping:
+  agronomy:
+    name: agronomy
+    name_en2zh: 农学
+    subcategories:
+      - other
+  anatomy:
+    name: anatomy
+    name_en2zh: 解剖学
+    subcategories:
+      - biology
+  ancient_chinese:
+    name: ancient chinese
+    name_en2zh: 古汉语
+    subcategories:
+      - linguistics
+      - china_specific
+  arts:
+    name: arts
+    name_en2zh: 艺术学
+    subcategories:
+      - arts
+  astronomy:
+    name: astronomy
+    name_en2zh: 天文学
+    subcategories:
+      - physics
+  business_ethics:
+    name: business ethics
+    name_en2zh: 商业伦理
+    subcategories:
+      - business
+  chinese_civil_service_exam:
+    name: chinese civil service exam
+    name_en2zh: 中国公务员考试
+    subcategories:
+      - polotics
+      - china_specific
+  chinese_driving_rule:
+    name: chinese driving rule
+    name_en2zh: 中国驾驶规则
+    subcategories:
+      - other
+      - china_specific
+  chinese_food_culture:
+    name: chinese food culture
+    name_en2zh: 中国饮食文化
+    subcategories:
+      - culture
+      - china_specific
+  chinese_foreign_policy:
+    name: chinese foreign policy
+    name_en2zh: 中国外交政策
+    subcategories:
+      - polotics
+      - china_specific
+  chinese_history:
+    name: chinese history
+    name_en2zh: 中国历史
+    subcategories:
+      - history
+      - china_specific
+  chinese_literature:
+    name: chinese literature
+    name_en2zh: 中国文学
+    subcategories:
+      - literature
+      - china_specific
+  chinese_teacher_qualification:
+    name: chinese teacher qualification
+    name_en2zh: 中国教师资格
+    subcategories:
+      - education
+      - china_specific
+  clinical_knowledge:
+    name: clinical knowledge
+    name_en2zh: 临床知识
+    subcategories:
+      - other
+  college_actuarial_science:
+    name: college actuarial science
+    name_en2zh: 大学精算学
+    subcategories:
+      - math
+  college_education:
+    name: college education
+    name_en2zh: 大学教育学
+    subcategories:
+      - education
+  college_engineering_hydrology:
+    name: college engineering hydrology
+    name_en2zh: 大学工程水文学
+    subcategories:
+      - engineering
+  college_law:
+    name: college law
+    name_en2zh: 大学法律
+    subcategories:
+      - law
+  college_mathematics:
+    name: college mathematics
+    name_en2zh: 大学数学
+    subcategories:
+      - math
+  college_medical_statistics:
+    name: college medical statistics
+    name_en2zh: 大学医学统计
+    subcategories:
+      - statistics
+  college_medicine:
+    name: college medicine
+    name_en2zh: 大学医学
+    subcategories:
+      - other
+  computer_science:
+    name: computer science
+    name_en2zh: 计算机科学
+    subcategories:
+      - computer science
+  computer_security:
+    name: computer security
+    name_en2zh: 计算机安全
+    subcategories:
+      - other
+  conceptual_physics:
+    name: conceptual physics
+    name_en2zh: 概念物理学
+    subcategories:
+      - physics
+  construction_project_management:
+    name: construction project management
+    name_en2zh: 建设工程管理
+    subcategories:
+      - other
+      - china_specific
+  economics:
+    name: economics
+    name_en2zh: 经济学
+    subcategories:
+      - economics
+  education:
+    name: education
+    name_en2zh: 教育学
+    subcategories:
+      - education
+  electrical_engineering:
+    name: electrical engineering
+    name_en2zh: 电气工程
+    subcategories:
+      - engineering
+  elementary_chinese:
+    name: elementary chinese
+    name_en2zh: 小学语文
+    subcategories:
+      - linguistics
+      - china_specific
+  elementary_commonsense:
+    name: elementary commonsense
+    name_en2zh: 小学常识
+    subcategories:
+      - other
+      - china_specific
+  elementary_information_and_technology:
+    name: elementary information and technology
+    name_en2zh: 小学信息技术
+    subcategories:
+      - other
+  elementary_mathematics:
+    name: elementary mathematics
+    name_en2zh: 初等数学
+    subcategories:
+      - math
+  ethnology:
+    name: ethnology
+    name_en2zh: 民族学
+    subcategories:
+      - culture
+      - china_specific
+  food_science:
+    name: food science
+    name_en2zh: 食品科学
+    subcategories:
+      - other
+  genetics:
+    name: genetics
+    name_en2zh: 遗传学
+    subcategories:
+      - biology
+  global_facts:
+    name: global facts
+    name_en2zh: 全球事实
+    subcategories:
+      - global
+  high_school_biology:
+    name: high school biology
+    name_en2zh: 高中生物
+    subcategories:
+      - biology
+  high_school_chemistry:
+    name: high school chemistry
+    name_en2zh: 高中化学
+    subcategories:
+      - chemistry
+  high_school_geography:
+    name: high school geography
+    name_en2zh: 高中地理
+    subcategories:
+      - geography
+  high_school_mathematics:
+    name: high school mathematics
+    name_en2zh: 高中数学
+    subcategories:
+      - math
+  high_school_physics:
+    name: high school physics
+    name_en2zh: 高中物理学
+    subcategories:
+      - physics
+  high_school_politics:
+    name: high school politics
+    name_en2zh: 高中政治
+    subcategories:
+      - polotics
+      - china_specific
+  human_sexuality:
+    name: human sexuality
+    name_en2zh: 人类性行为
+    subcategories:
+      - other
+  international_law:
+    name: international law
+    name_en2zh: 国际法学
+    subcategories:
+      - law
+  journalism:
+    name: journalism
+    name_en2zh: 新闻学
+    subcategories:
+      - sociology
+  jurisprudence:
+    name: jurisprudence
+    name_en2zh: 法理学
+    subcategories:
+      - law
+  legal_and_moral_basis:
+    name: legal and moral basis
+    name_en2zh: 法律与道德基础
+    subcategories:
+      - other
+  logical:
+    name: logical
+    name_en2zh: 逻辑学
+    subcategories:
+      - philosophy
+  machine_learning:
+    name: machine learning
+    name_en2zh: 机器学习
+    subcategories:
+      - computer science
+  management:
+    name: management
+    name_en2zh: 管理学
+    subcategories:
+      - business
+  marketing:
+    name: marketing
+    name_en2zh: 市场营销
+    subcategories:
+      - business
+  marxist_theory:
+    name: marxist theory
+    name_en2zh: 马克思主义理论
+    subcategories:
+      - philosophy
+  modern_chinese:
+    name: modern chinese
+    name_en2zh: 现代汉语
+    subcategories:
+      - linguistics
+      - china_specific
+  nutrition:
+    name: nutrition
+    name_en2zh: 营养学
+    subcategories:
+      - other
+  philosophy:
+    name: philosophy
+    name_en2zh: 哲学
+    subcategories:
+      - philosophy
+  professional_accounting:
+    name: professional accounting
+    name_en2zh: 专业会计
+    subcategories:
+      - business
+  professional_law:
+    name: professional law
+    name_en2zh: 专业法学
+    subcategories:
+      - law
+  professional_medicine:
+    name: professional medicine
+    name_en2zh: 专业医学
+    subcategories:
+      - other
+  professional_psychology:
+    name: professional psychology
+    name_en2zh: 专业心理学
+    subcategories:
+      - psychology
+  public_relations:
+    name: public relations
+    name_en2zh: 公共关系
+    subcategories:
+      - polotics
+  security_study:
+    name: security study
+    name_en2zh: 安全研究
+    subcategories:
+      - polotics
+  sociology:
+    name: sociology
+    name_en2zh: 社会学
+    subcategories:
+      - culture
+  sports_science:
+    name: sports science
+    name_en2zh: 体育学
+    subcategories:
+      - other
+  traditional_chinese_medicine:
+    name: traditional chinese medicine
+    name_en2zh: 中医中药
+    subcategories:
+      - other
+      - china_specific
+  virology:
+    name: virology
+    name_en2zh: 病毒学
+    subcategories:
+      - biology
+  world_history:
+    name: world history
+    name_en2zh: 世界历史
+    subcategories:
+      - history
+  world_religions:
+    name: world religions
+    name_en2zh: 世界宗教
+    subcategories:
+      - global

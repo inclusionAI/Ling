@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools==68.0.0", "wheel==0.43.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modeltest"
+version = "0.1.0"
+description = "A framework for evaluating language models."
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+exclude = ["run.sh"]
+
+[project.scripts]
+model-test = "modeltest.__main__:cli_evaluate"
+model_test = "modeltest.__main__:cli_evaluate"
+modeltest = "modeltest.__main__:cli_evaluate"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+known-first-party = ["modeltest"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"__init__.py" = ["F401","F402","F403"]

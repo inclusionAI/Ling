@@ -1,0 +1,18 @@
+task_type: precision
+task_name: boolq
+hf_dataset_path: google/boolq
+om_dataset_path: mindie/boolq
+local_dataset_path: data/boolq
+prompt: "{title} -- {passage}\nQuestion: {text}?\nAnswer:"
+choices: ["true", "false"]
+shots: 0
+requested_max_input_length: 3072
+requested_max_output_length: 1
+need_logits: true
+metric:
+  metric_type: acc
+metadata:
+  version: 1.0
+subject_mapping:
+  dev.jsonl: 
+    name: dev

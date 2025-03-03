@@ -1,0 +1,10 @@
+{
+    "black-list": {
+        "to-add": [
+            "Add",
+            "Sub",
+            "Mul",
+            "SoftmaxV2"
+        ]
+    }
+}

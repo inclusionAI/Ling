@@ -1,0 +1,16 @@
+task_type: precision
+task_name: gsm8k
+hf_dataset_path: google/gsm8k
+om_dataset_path: mindie/gsm8k
+local_dataset_path: data/gsm8k
+shots: 0
+requested_max_input_length: 3072
+requested_max_output_length: 512
+need_logits: false
+metric:
+  metric_type: acc
+metadata:
+  version: 1.0
+subject_mapping:
+  GSM8K.jsonl: 
+    name: GSM8K

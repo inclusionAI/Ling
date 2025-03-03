@@ -1,0 +1,2 @@
+add_subdirectory(adapter)
+add_subdirectory(atb_torch)
