@@ -73,7 +73,7 @@
                 {
                     "modelInstanceType" : "Standard",
                     "modelName" : "bailing_moe",
-                    "modelWeightPath" : "/mnt/eval/moe-lite/jingyue/moe_lite_base-bailing-safetensor",
+                    "modelWeightPath" : "/home/HwHiAiUser/Ascend/Ling_lite_base_safetensor",
                     "worldSize" : 8,
                     "cpuMemSize" : 5,
                     "npuMemSize" : -1,
