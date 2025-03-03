@@ -104,7 +104,7 @@ llamafactory-cli train examples/sft/ling_full_sft.yaml
 ```
 
 ## License
-This code repository is licensed under [the MIT License](LICENSE-CODE).
+This code repository is licensed under [the MIT License](LICENSE).
 
 ## Citation
 [TBD]
