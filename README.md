@@ -108,6 +108,3 @@ This code repository is licensed under [the MIT License](https://github.com/incl
 
 ## Citation
 [TBD]
-
-## Contact
-If you have any questions, please raise an issue or contact us at xxx.
