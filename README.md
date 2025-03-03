@@ -23,10 +23,10 @@ You can download the following table to see the various parameters for your use 
 
 |     **Model**      | **#Total Params** | **#Activated Params** | **Context Length** | **Download** |
 | :----------------: | :---------------: | :-------------------: | :----------------: | :----------: |
-| Ling-lite-base |       16.8B       |         2.75B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base) |
-| Ling-lite |       16.8B       |         2.75B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)     |
-| Ling-plus-base |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base)     |
-| Ling-plus |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) [🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)     |
+| Ling-lite-base |       16.8B       |         2.75B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base) |
+| Ling-lite |       16.8B       |         2.75B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)     |
+| Ling-plus-base |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base)     |
+| Ling-plus |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)     |
 </div>
 
 ## Evaluation
