@@ -243,13 +243,13 @@ mindie supports safetensors format weights, if the download weights are not in s
 python /home/HwHiAiUser/Ascend/Ling/mindie_config/convert_bin_to_safetensor.py
 
 cd /home/HwHiAiUser/Ascend/Ling_lite
-cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json .. /Ling_lite_safetensor/
+cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json ../Ling_lite_safetensor/
 
 # Convert Ling lite base
 python /home/HwHiAiUser/Ascend/Ling/mindie_config/convert_bin_to_safetensor_base.py
 
 cd /home/HwHiAiUser/Ascend/Ling_lite_base
-cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json .. /Ling_lite_base_safetensor/
+cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json ../Ling_lite_base_safetensor/
 ```
 
 The path of loading the Ling Lite model is changed to '/home/HwHiAiUser/Ascend/Ling_lite_safetensor', and the path of the Ling Lite Base model is changed to '/home/HwHiAiUser/Ascend/Ling_lite_base_safetensor'
@@ -309,7 +309,7 @@ Check /tmp/service.log to check whether the output is Daemon start success!, if 
 Test if the request is correct:
 ```
 # Chat model
-wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?". \"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
+wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?\"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
 --header='Content-Type:application/json' \
 'http://127.0.0.1:1025/v1/chat/completions'
 
@@ -424,15 +424,15 @@ The service is considered to have started successfully.
 Test if the request is correct:
 ```
 # Chat model
-wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?". \"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
+wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?\"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
 --header='Content-Type:application/json' \
-'http://192.168.0.168:1025/v1/chat/completions'
+'http://<Change to primary node IP>:1025/v1/chat/completions'
 
 # base model
 
 wget -O- --post-data='{"inputs":"My name is Olivier and I","stream":false,"parameters":{"temperature":1,"max_new_tokens":100,"do_sample":false}}' \
 --header='Content-Type:application/json' \
-'http://127.0.0.1:1025/infer'
+'http://<Change to primary node IP>:1025/infer'
 ```
 
 ## Finetuning
