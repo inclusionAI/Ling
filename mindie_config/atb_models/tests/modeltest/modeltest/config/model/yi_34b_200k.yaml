@@ -1,8 +1,0 @@
-model_name: yi_34b_200k
-model_path: /home/data/Yi-34B-200K
-model_type: pa
-data_type: fp16
-use_chat_template: false
-max_position_embedding: 200000
-block_size: 128
-requested_gpu_framework: "Huggingface"

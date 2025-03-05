@@ -280,11 +280,17 @@ cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/model_base_config.json /home/
 chmod 750 /home/HwHiAiUser/Ascend/Ling_plus_base/config.json
 ```
 
+Execute the shell script that adapts the mindie to the Ling model:
+
+```bash
+bash /home/HwHiAiUser/Ascend/Ling/mindie_config/patch_atb_llm.sh
+```
+
 #### Stand-alone Servitization Inference (Ling lite)
 
 Set the underlying environment variables:
 ```bash
-source /home/HwHiAiUser/Ascend/Ling/mindie_config/set_env.sh
+source /usr/local/Ascend/atb-models/set_env.sh
 ```
 
 Set different mindie configurations according to the model type:

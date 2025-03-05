@@ -1,8 +1,0 @@
-# Copyright Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
-from atb_llm.common_op_builders.common_op_builder_manager import CommonOpBuilderManager
-from atb_llm.common_op_builders.gate_up.gate_up_pack_common_op_builder import GateUpPackCommonOpBuilder
-from atb_llm.common_op_builders.gate_up.gate_up_no_pack_common_op_builder import GateUpNoPackCommonOpBuilder
-
-
-CommonOpBuilderManager.register(GateUpPackCommonOpBuilder)
-CommonOpBuilderManager.register(GateUpNoPackCommonOpBuilder)

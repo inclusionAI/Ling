@@ -1,6 +1,0 @@
-/home/zhaozixin/MindIE-LLM/examples/atb_models/output/atb_models/./set_env.sh
-/home/zhaozixin/MindIE-LLM/examples/atb_models/output/atb_models/lib/libatb_speed_core.so
-/home/zhaozixin/MindIE-LLM/examples/atb_models/output/atb_models/lib/libatb_speed_models.so
-/home/zhaozixin/MindIE-LLM/examples/atb_models/output/atb_models/lib/libatb_speed_torch.so
-/home/zhaozixin/MindIE-LLM/examples/atb_models/output/atb_models/lib/_libatb_torch.so
-/home/zhaozixin/MindIE-LLM/examples/atb_models/output/atb_models/lib/libatb_speed_operations.so

@@ -1,6 +1,0 @@
-if(USE_UNIT_TEST)
-    add_subdirectory(unittest)
-endif()
-if(USE_FUZZ_TEST)
-    add_subdirectory(fuzztest)
-endif()

@@ -1,8 +1,0 @@
-torch==2.1.0
-transformers==4.38.2
-timm==0.9.16
-accelerate==0.31.0
-sentencepiece==0.2.0
-attrdict==2.0.1
-einops==0.8.0
-open-clip-torch

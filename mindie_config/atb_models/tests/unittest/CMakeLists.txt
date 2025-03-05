@@ -1,6 +1,0 @@
-file(GLOB_RECURSE SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/*.cpp")
-add_executable(speed_unittest ${SOURCE_FILES})
-target_include_directories(speed_unittest PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/include)
-target_link_directories(speed_unittest PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/lib)
-target_link_libraries(speed_unittest PRIVATE atb_speed_torch atb_speed_core atb_speed_models atb_speed_operations ascendcl -lgtest -lgtest_main -lpthread -lm)
-install(TARGETS speed_unittest DESTINATION bin)
