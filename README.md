@@ -142,7 +142,7 @@ Download the mindie-related configuration from github:
 
 ```bash
 cd /root/models
-git clone git@github.com:inclusionAI/Ling.git -b mindie_config
+git clone git@github.com:inclusionAI/Ling.git
 ```
 
 #### Machine network environment check
