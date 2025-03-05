@@ -1,5 +1,5 @@
 ### model
-model_name_or_path: xxxxxx
+model_name_or_path: inclusionAI/Ling-lite
 trust_remote_code: true
 
 ### method
@@ -20,7 +20,7 @@ overwrite_cache: true
 preprocessing_num_workers: 16
 
 ### output
-output_dir: saves/bailing-moe-lite/lora/dpo
+output_dir: saves/ling-moe-lite/lora/dpo
 logging_steps: 10
 save_steps: 500
 plot_loss: true
