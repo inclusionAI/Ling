@@ -31,7 +31,7 @@ You can download the following table to see the various parameters for your use 
 
 ## Evaluation
 
-Detailed evaluation results are reported in our technical report [TBD].
+Detailed evaluation results are reported in our [technical report](https://github.com/inclusionAI/Ling/blob/master/Ling_Technical_Report_V1.pdf).
 
 ## Quickstart
 ### 🤗 Hugging Face Transformers
