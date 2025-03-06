@@ -17,7 +17,7 @@ As more developers and researchers engage with the platform, we can expect rapid
 
 ## Model Downloads
 
-You can download the following table to see the various parameters for your use case. If you are located in mainland China, we also provide the model on Modulescope.cn to speed up the download process.
+You can download the following table to see the various parameters for your use case. If you are located in mainland China, we also provide the model on ModelScope.cn to speed up the download process.
 
 <div align="center">
 
