@@ -80,7 +80,7 @@ If you're in mainland China, we strongly recommend you to use our model from ðŸ¤
 ## Deployment
 
 ### vLLM
-vllm supports offline batched inference or launching an OpenAI-Compatible API Service for online inference.
+vLLM supports offline batched inference or launching an OpenAI-Compatible API Service for online inference.
 
 #### Environment Preparation
 Since the Pull Request (PR) has not been submitted to the vLLM community at this stage, please prepare the environment by following the steps below:
@@ -118,7 +118,7 @@ outputs = llm.generate([text], sampling_params)
 #### Online Inference:
 
 ```bash
-VLLM_USE_V1=1 vllm serve inclusionAI/Ling-lite \
+vllm serve inclusionAI/Ling-lite \
               --tensor-parallel-size 2 \
               --pipeline-parrallel-size 1 \
               --use-v2-block-manager \
