@@ -142,7 +142,7 @@ Download the mindie-related configuration from github:
 
 ```bash
 cd /root/models
-git clone git@github.com:inclusionAI/Ling.git -b mindie_config
+git clone git@github.com:inclusionAI/Ling.git
 ```
 
 #### Machine network environment check
@@ -240,13 +240,13 @@ mindie supports safetensors format weights, if the download weights are not in s
 
 ```bash
 # Convert Ling lite
-python /home/HwHiAiUser/Ascend/Ling/mindie_config/convert_bin_to_safetensor.py
+python /home/HwHiAiUser/Ascend/Ling/inference/mindie/convert_bin_to_safetensor.py
 
 cd /home/HwHiAiUser/Ascend/Ling_lite
 cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json ../Ling_lite_safetensor/
 
 # Convert Ling lite base
-python /home/HwHiAiUser/Ascend/Ling/mindie_config/convert_bin_to_safetensor_base.py
+python /home/HwHiAiUser/Ascend/Ling/inference/mindie/convert_bin_to_safetensor_base.py
 
 cd /home/HwHiAiUser/Ascend/Ling_lite_base
 cp README.md configuration.json config.json special_tokens_map.json modeling_bailing_moe.py tokenizer.json tokenizer_config.json ../Ling_lite_base_safetensor/
@@ -261,39 +261,45 @@ The default model configuration file (config.json) mindie cannot be loaded direc
 ```bash
 # Adapt to mindie's Ling lite model configuration
 cp /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json.bak
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/model_chat_config.json /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/lite/model_chat_config.json /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json
 chmod 750 /home/HwHiAiUser/Ascend/Ling_lite_safetensor/config.json
 
 # Adapt to mindie's Ling lite base model configuration
 cp /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json.bak
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/model_base_config.json /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/lite/model_base_config.json /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json
 chmod 750 /home/HwHiAiUser/Ascend/Ling_lite_base_safetensor/config.json
 
 # Adapt to mindie's Ling plus model configuration
 cp /home/HwHiAiUser/Ascend/Ling_plus/config.json /home/HwHiAiUser/Ascend/Ling_plus/config.json.bak
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/model_chat_config.json /home/HwHiAiUser/Ascend/Ling_plus/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/plus/model_chat_config.json /home/HwHiAiUser/Ascend/Ling_plus/config.json
 chmod 750 /home/HwHiAiUser/Ascend/Ling_plus/config.json
 
 # Adapt to mindie's Ling plus base model configuration
 cp /home/HwHiAiUser/Ascend/Ling_plus_base/config.json /home/HwHiAiUser/Ascend/Ling_plus_base/config.json.bak
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/model_base_config.json /home/HwHiAiUser/Ascend/Ling_plus_base/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/plus/model_base_config.json /home/HwHiAiUser/Ascend/Ling_plus_base/config.json
 chmod 750 /home/HwHiAiUser/Ascend/Ling_plus_base/config.json
+```
+
+Execute the shell script that adapts the mindie to the Ling model:
+
+```bash
+bash /home/HwHiAiUser/Ascend/Ling/inference/mindie/patch_atb_llm.sh
 ```
 
 #### Stand-alone Servitization Inference (Ling lite)
 
 Set the underlying environment variables:
 ```bash
-source /home/HwHiAiUser/Ascend/Ling/mindie_config/set_env.sh
+source /usr/local/Ascend/atb-models/set_env.sh
 ```
 
 Set different mindie configurations according to the model type:
 ```bash
 # Ling Lite
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/lite/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 
 # Ling Lite base
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/lite/config.base.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/lite/config.base.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 ```
 
 Start the mindie service:
@@ -361,7 +367,7 @@ Enter the container and run the following command:
 
 ```bash
 # Set the basic environment variables:
-source /home/HwHiAiUser/Ascend/Ling/mindie_config/set_env.sh
+source /home/HwHiAiUser/Ascend/Ling/inference/mindie/set_env.sh
 # Enable communication environment variables
 export ATB_LLM_HCCL_ENABLE=1
 export ATB_LLM_COMM_BACKEND="hccl"
@@ -387,10 +393,10 @@ export MIES_CONTAINER_IP=IP address of the container
 Set different mindie configurations according to the model type:
 ```bash
 # Ling plus
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/plus/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 
 # Ling plus base
-cp /home/HwHiAiUser/Ascend/Ling/mindie_config/plus/config.base.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/plus/config.base.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 ```
 
 Modify the servitization parameters:
