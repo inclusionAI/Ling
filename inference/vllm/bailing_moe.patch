@@ -1,23 +1,23 @@
-From eee7e014de36c82944704d0fe9f53ad6acb1f423 Mon Sep 17 00:00:00 2001
+From 2e4640391b87ad5489e3383972f703d4f2814bb3 Mon Sep 17 00:00:00 2001
 From: "serina.wzq@antgroup.com" <serina.wzq>
 Date: Thu, 27 Feb 2025 11:29:42 +0800
-Subject: [PATCH] support BailingMoeForCausalLM for opensource
+Subject: [PATCH] support BailingMoeForCausalLM
 
 ---
- vllm/model_executor/models/bailing_moe.py     | 546 ++++++++++++++++++
+ vllm/model_executor/models/bailing_moe.py     | 535 ++++++++++++++++++
  vllm/model_executor/models/registry.py        |   1 +
  vllm/transformers_utils/configs/__init__.py   |   3 +
  .../transformers_utils/configs/bailing_moe.py |  76 +++
- 4 files changed, 626 insertions(+)
+ 4 files changed, 615 insertions(+)
  create mode 100644 vllm/model_executor/models/bailing_moe.py
  create mode 100644 vllm/transformers_utils/configs/bailing_moe.py
 
 diff --git a/vllm/model_executor/models/bailing_moe.py b/vllm/model_executor/models/bailing_moe.py
 new file mode 100644
-index 000000000..20d6f2cfc
+index 000000000..774580c94
 --- /dev/null
 +++ b/vllm/model_executor/models/bailing_moe.py
-@@ -0,0 +1,546 @@
+@@ -0,0 +1,535 @@
 +# coding=utf-8
 +""" PyTorch Bailing model. """
 +
@@ -75,28 +75,20 @@ index 000000000..20d6f2cfc
 +            prefix: str = "",
 +    ):
 +        super().__init__()
-+
 +        self.hidden_size = config.hidden_size
-+
 +        self.total_num_heads = config.num_attention_heads
-+
 +        self.total_kv_heads = config.num_key_value_heads
-+
 +        tp_size = get_tensor_model_parallel_world_size()
-+
 +
 +        assert self.total_num_heads % tp_size == 0
 +        assert self.total_kv_heads % tp_size == 0
 +        assert self.total_num_heads >= self.total_kv_heads
 +
-+
 +        self.num_heads = self.total_num_heads // tp_size
-+
 +        self.head_dim = config.head_dim or (self.hidden_size // self.total_num_heads)
 +        self.q_size_per_rank = self.head_dim * self.num_heads
 +
 +        self.num_kv_heads = self.total_kv_heads // tp_size
-+
 +        self.kv_size_per_rank = self.num_kv_heads * self.head_dim
 +
 +        self.scale = self.head_dim ** -0.5
@@ -507,7 +499,6 @@ index 000000000..20d6f2cfc
 +            if (("v_head" in name) or ("inv_freq" in name) or
 +                    (self.config.tie_word_embeddings and "lm_head" in name)):
 +                continue
-+
 +            if self.config.norm_head and "lm_head.weight" in name:
 +                import torch.nn.functional as F
 +                loaded_weight = F.normalize(loaded_weight, dim=0, p=2, eps=1e-7)
@@ -549,7 +540,6 @@ index 000000000..20d6f2cfc
 +                                  expert_id=expert_id)
 +                    break
 +                else:
-+                    # Skip loading extra bias for GPTQ models.
 +                    if name.endswith(".bias") and name not in params_dict:
 +                        continue
 +                    if name not in params_dict:
@@ -563,7 +553,6 @@ index 000000000..20d6f2cfc
 +                    weight_loader(param, loaded_weight)
 +            loaded_params.add(name)
 +        return loaded_params
-+
 diff --git a/vllm/model_executor/models/registry.py b/vllm/model_executor/models/registry.py
 index 81623defd..8e434f624 100644
 --- a/vllm/model_executor/models/registry.py
@@ -597,7 +586,7 @@ index 906056559..45fab6fcf 100644
  ]
 diff --git a/vllm/transformers_utils/configs/bailing_moe.py b/vllm/transformers_utils/configs/bailing_moe.py
 new file mode 100644
-index 000000000..1cd94ae80
+index 000000000..4379368cf
 --- /dev/null
 +++ b/vllm/transformers_utils/configs/bailing_moe.py
 @@ -0,0 +1,76 @@
@@ -665,7 +654,7 @@ index 000000000..1cd94ae80
 +        self.use_sliding_window = use_sliding_window
 +        self.sliding_window = sliding_window
 +        self.max_window_layers = max_window_layers
-+        self.head_dim = head_dim
++        self.head_dim = head_dim if head_dim is not None else self.hidden_size // self.num_attention_heads
 +        self.rope_scaling = rope_scaling
 +
 +        # MoE configs
