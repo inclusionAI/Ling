@@ -21,12 +21,13 @@ You can download the following table to see the various parameters for your use 
 
 <div align="center">
 
-|     **Model**      | **#Total Params** | **#Activated Params** | **Context Length** | **Download** |
-| :----------------: | :---------------: | :-------------------: | :----------------: | :----------: |
-| Ling-lite-base |       16.8B       |         2.75B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base) |
-| Ling-lite |       16.8B       |         2.75B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)     |
-| Ling-plus-base |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base)     |
-| Ling-plus |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)     |
+|   **Model**    | **#Total Params** | **#Activated Params** | **Context Length** |                                                                     **Download**                                                                     |
+| :------------: | :---------------: | :-------------------: | :----------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Ling-lite-base |       16.8B       |         2.75B         |        64K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base) |
+|   Ling-lite    |       16.8B       |         2.75B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)      |
+| Ling-plus-base |       290B        |         28.8B         |        64K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base) |
+|   Ling-plus    |       290B        |         28.8B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)      |
+
 </div>
 
 ## Evaluation
@@ -34,6 +35,7 @@ You can download the following table to see the various parameters for your use 
 Detailed evaluation results are reported in our [technical report](https://github.com/inclusionAI/Ling/blob/master/Ling_Technical_Report_V1.pdf).
 
 ## Quickstart
+
 ### 🤗 Hugging Face Transformers
 
 Here is a code snippet to show you how to use the chat model with `transformers`:
@@ -80,17 +82,22 @@ If you're in mainland China, we strongly recommend you to use our model from �
 ## Deployment
 
 ### vLLM
+
 vLLM supports offline batched inference or launching an OpenAI-Compatible API Service for online inference.
 
 #### Environment Preparation
+
 Since the Pull Request (PR) has not been submitted to the vLLM community at this stage, please prepare the environment by following the steps below:
+
 ```bash
 git clone -b  v0.7.3 https://github.com/vllm-project/vllm.git
 cd vllm
 git apply Ling/inference/vllm/bailing_moe.patch
 pip install -e .
 ```
+
 #### Offline Inference:
+
 ```bash
 from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
@@ -115,6 +122,7 @@ outputs = llm.generate([text], sampling_params)
 
 
 ```
+
 #### Online Inference:
 
 ```bash
@@ -122,8 +130,9 @@ vllm serve inclusionAI/Ling-lite \
               --tensor-parallel-size 2 \
               --pipeline-parrallel-size 1 \
               --use-v2-block-manager \
-              --gpu-memory-utilization 0.90 
+              --gpu-memory-utilization 0.90
 ```
+
 For detailed guidance, please refer to the vLLM [`instructions`](https://docs.vllm.ai/en/latest/).
 
 ### MindIE
@@ -131,8 +140,9 @@ For detailed guidance, please refer to the vLLM [`instructions`](https://docs.vl
 This topic describes the main steps to run an Ling MoE model based on Huawei NPU cards and the MindIE inference framework
 
 #### Hardware Requirements
-- The MoE Plus model requires at least 2 Atlas 800I A2 (8*64G) servers.
-- The MoE Lite model requires at least 1 Atlas 800I A2 (8*64G) server.
+
+- The MoE Plus model requires at least 2 Atlas 800I A2 (8\*64G) servers.
+- The MoE Lite model requires at least 1 Atlas 800I A2 (8\*64G) server.
 
 #### Configure preparation
 
@@ -146,7 +156,8 @@ git clone git@github.com:inclusionAI/Ling.git
 ```
 
 #### Machine network environment check
-```
+
+```bash
 # Check the physical link
 for i in {0..7}; do hccn_tool -i $i -lldp -g | grep Ifname; done
 # Check the links
@@ -164,7 +175,8 @@ for i in {0..7}; do hccn_tool -i $i -tls -s enable 0; done
 ```
 
 #### Pull the image
-Go to [Ascend Community/Development Resources] (https://www.hiascend.com/developer/ascendhub) and pull the mindie image
+
+Go to [Ascend Community/Development Resources](https://www.hiascend.com/developer/ascendhub) and pull the mindie image
 
 Image version: 1.0.0-800I-A2-py311-openeuler24.03-lts
 
@@ -176,9 +188,7 @@ Component | Version |
 |PTA | 6.0.0.beta1 |
 |HDK | 24.1.0 |
 
-
 #### Container startup and configuration changes
-
 
 ##### Start the container
 
@@ -207,14 +217,17 @@ docker run -itd --privileged --name=container name --net=host \
 mindie: 1.0.0-XXX-800I-A2-arm64-py3.11 (modified according to the name of the loaded image) \
 bash
 ```
+
 ##### Download the model
 
 In this case, we use ModelScope to download the model, and install ModelScope first:
+
 ```bash
 pip install modelscope
 ```
 
 Download the model:
+
 ```bash
 # The model takes a long time to download and can be executed in the background
 nohup modelscope download --model inclusionAI/Ling-plus --local_dir /home/HwHiAiUser/Ascend/Ling_plus 2>&1 > /tmp/ling_plus.log &
@@ -289,11 +302,13 @@ bash /home/HwHiAiUser/Ascend/Ling/inference/mindie/patch_atb_llm.sh
 #### Stand-alone Servitization Inference (Ling lite)
 
 Set the underlying environment variables:
+
 ```bash
 source /usr/local/Ascend/atb-models/set_env.sh
 ```
 
 Set different mindie configurations according to the model type:
+
 ```bash
 # Ling Lite
 cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/lite/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
@@ -303,6 +318,7 @@ cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/lite/config.base.json /usr/loca
 ```
 
 Start the mindie service:
+
 ```bash
 chmod 640 /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
 
@@ -313,7 +329,8 @@ nohup ./bin/mindieservice_daemon > /tmp/service.log 2>&1 &
 Check /tmp/service.log to check whether the output is Daemon start success!, if so, it means that MindIE-Service has started successfully.
 
 Test if the request is correct:
-```
+
+```bash
 # Chat model
 wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?\"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
 --header='Content-Type:application/json' \
@@ -333,12 +350,14 @@ All of the following commands need to be executed simultaneously on all machines
 To enable multi-machine service-based inference, you need to configure a multi-machine ranktable file.
 
 - Get the IP address of each card (on the host)
+
 ```bash
 for i in {0..7}; do hccn_tool -i $i -ip -g; done
 ```
 
 - Configure 'rank_table.json' in the following format and put it in '/root/models' so that it can be mounted to the container
-```
+
+```json
 {
 "server_count": "...", # Total number of nodes
 # The first server in the server_list is the primary node
@@ -363,7 +382,6 @@ for i in {0..7}; do hccn_tool -i $i -ip -g; done
 ```
 
 Enter the container and run the following command:
-
 
 ```bash
 # Set the basic environment variables:
@@ -391,6 +409,7 @@ export MIES_CONTAINER_IP=IP address of the container
 ```
 
 Set different mindie configurations according to the model type:
+
 ```bash
 # Ling plus
 cp /home/HwHiAiUser/Ascend/Ling/inference/mindie/plus/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
@@ -411,23 +430,26 @@ vim conf/config.json
 ```
 
 To set the memory usage ratio:
+
 ```bash
 export NPU_MEMORY_FRACTION=0.95
 ```
 
 Pull up servitization:
+
 ```bash
 cd $MIES_INSTALL_PATH
 nohup ./bin/mindieservice_daemon > /tmp/service.log 2>&1 &
 ```
+
 When the command is executed, all the parameters used for this startup are first printed, and then until the following output appears:
 
 `Daemon start success!`
 
 The service is considered to have started successfully.
 
-
 Test if the request is correct:
+
 ```
 # Chat model
 wget -O- --post-data="{\"messages\":[{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"user\", \"content\": \"Who are you?\"}], \"stream\": false, \"max_tokens\":100, \"model\": \"bailing_moe\", \"temperature\":0}" \
@@ -449,9 +471,9 @@ We use [`identity`](https://github.com/hiyouga/LLaMA-Factory/blob/main/data/iden
 
 ```json
 {
-    "instruction": "hi",
-    "input": "",
-    "output": "Hello! I am Ling, an AI assistant developed by inclusionAI. How can I assist you today?"
+  "instruction": "hi",
+  "input": "",
+  "output": "Hello! I am Ling, an AI assistant developed by inclusionAI. How can I assist you today?"
 }
 ```
 
@@ -462,7 +484,9 @@ llamafactory-cli train examples/sft/ling_full_sft.yaml
 ```
 
 ## License
+
 This code repository is licensed under [the MIT License](https://github.com/inclusionAI/Ling/blob/master/LICENCE).
 
 ## Citation
+
 [TBD]
