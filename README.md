@@ -108,7 +108,7 @@ tokenizer = AutoTokenizer.from_pretrained("inclusionAI/Ling-lite")
 
 sampling_params = SamplingParams(temperature=0.7, top_p=0.8, repetition_penalty=1.05, max_tokens=512)
 
-llm = LLM(model="inclusionAI/Ling-lite",
+llm = LLM(model="inclusionAI/Ling-lite", dtype='bfloat16')
 prompt = "Give me a short introduction to large language models."
 messages = [
     {"role": "system", "content": "You are Ling, an assistant created by inclusionAI"},
