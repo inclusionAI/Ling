@@ -125,6 +125,19 @@ outputs = llm.generate([text], sampling_params)
 
 ```
 
+We utilize YaRN in vLLM to handle long context by add a `rope_scaling` field to the `config.json` file of the model. For example,
+
+```json
+{
+  ...,
+  "rope_scaling": {
+    "factor": 4.0,
+    "original_max_position_embeddings": 16384,
+    "type": "yarn"
+  }
+}
+```
+
 #### Online Inference:
 
 ```bash
