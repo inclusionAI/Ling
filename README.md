@@ -21,20 +21,20 @@ You can download the following table to see the various parameters for your use 
 
 <div align="center">
 
-|   **Model**    | **#Total Params** | **#Activated Params** | **Context Length** |                                                                     **Download**                                                                     |
-| :------------: | :---------------: | :-------------------: | :----------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: |
-| Ling-lite-base |       16.8B       |         2.75B         |        64K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base) |
-|   Ling-lite    |       16.8B       |         2.75B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)      |
-| Ling-plus-base |       290B        |         28.8B         |        64K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base) |
-|   Ling-plus    |       290B        |         28.8B         |        64K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)      |
-| Ling-coder-lite-base |       16.8B        |         2.75B         |        16K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite-base) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite-base) |
-|   Ling-code-lite    |       16.8B        |         2.75B         |        16K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite)      |
+|      **Model**       | **#Total Params** | **#Activated Params** | **Context Length** |                                                                        **Download**                                                                        |
+| :------------------: | :---------------: | :-------------------: | :----------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|    Ling-lite-base    |       16.8B       |         2.75B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base)     |
+|      Ling-lite       |       16.8B       |         2.75B         |        64K         |          [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)          |
+|    Ling-plus-base    |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base)     |
+|      Ling-plus       |       290B        |         28.8B         |        64K         |          [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)          |
+| Ling-coder-lite-base |       16.8B       |         2.75B         |        16K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite-base) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite-base) |
+|   Ling-coder-lite    |       16.8B       |         2.75B         |        16K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite)      |
 
 </div>
 
 ## Evaluation
 
-Detailed evaluation results are reported in our [technical report](https://github.com/inclusionAI/Ling/blob/master/Ling_Technical_Report_V1.pdf).
+Detailed evaluation results are reported in our [technical report on arxiv](https://arxiv.org/pdf/2503.05139) or [direct link](Ling_TR_v1.pdf).
 
 ## Quickstart
 
@@ -196,12 +196,12 @@ Go to [Ascend Community/Development Resources](https://www.hiascend.com/develope
 Image version: 1.0.0-800I-A2-py311-openeuler24.03-lts
 
 The versions of each component are as follows:
-Component | Version |
-| - | - |
-|MindIE | 1.0.0 |
-|CANN | 8.0.0 |
-|PTA | 6.0.0.beta1 |
-|HDK | 24.1.0 |
+| Component | Version     |
+| --------- | ----------- |
+| MindIE    | 1.0.0       |
+| CANN      | 8.0.0       |
+| PTA       | 6.0.0.beta1 |
+| HDK       | 24.1.0      |
 
 #### Container startup and configuration changes
 
