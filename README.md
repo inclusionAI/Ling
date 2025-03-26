@@ -143,7 +143,7 @@ We utilize YaRN in vLLM to handle long context by add a `rope_scaling` field to 
 ```bash
 vllm serve inclusionAI/Ling-lite \
               --tensor-parallel-size 2 \
-              --pipeline-parrallel-size 1 \
+              --pipeline-parallel-size 1 \
               --use-v2-block-manager \
               --gpu-memory-utilization 0.90
 ```
