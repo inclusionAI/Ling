@@ -63,7 +63,7 @@ class BailingMoeConfig(PretrainedConfig):
         self.use_sliding_window = use_sliding_window
         self.sliding_window = sliding_window
         self.max_window_layers = max_window_layers
-        self.head_dim = head_dim
+        self.head_dim = head_dim or self.hidden_size // self.num_attention_heads
         self.rope_scaling = rope_scaling
 
         # MoE configs
