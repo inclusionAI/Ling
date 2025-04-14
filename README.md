@@ -507,7 +507,7 @@ This code repository is licensed under [the MIT License](https://github.com/incl
 If you find our work helpful, feel free to give us a cite.
 
 ```
-@article{qwen2.5,
+@article{ling,
     title   = {Every FLOP Counts: Scaling a 300B Mixture-of-Experts LING LLM without Premium GPUs}, 
     author  = {Ling Team},
     journal = {arXiv preprint arXiv:2503.05139},
