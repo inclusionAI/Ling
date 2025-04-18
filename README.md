@@ -19,6 +19,7 @@ As more developers and researchers engage with the platform, we can expect rapid
 
 Ling-lite is upgraded to Ling-lite-0415. The new model demonstrates notable improvements over its predecessor, Ling-lite-0220, especially on code and math.
 
+<div align="center">
 |      **Benmark**       | **Ling-Lite-0415** | **Ling-Lite-0220** | **Qwen2.5-7B-Instruct** |  
 | :------------------: | :---------------: | :-------------------: | :----------------: | 
 |    MMLU    |       74.87      |      71.23            |       74.26         |  
@@ -30,6 +31,7 @@ Ling-lite is upgraded to Ling-lite-0415. The new model demonstrates notable impr
 |   OlympiadBench    |     37.33    |       34.42           |                |
 |   BBH    |    74.58     |        66.38          |                |
 |   IFEval    |    81.09     |        79.41          |       71.16         |  
+</div>
 
 ## Model Downloads
 
