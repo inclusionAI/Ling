@@ -22,7 +22,7 @@ Ling-lite is upgraded to Ling-lite-0415. The new model demonstrates notable impr
 <div align="center">
 
 |      **Benchmark**       |   **#shots**       | **Ling-Lite-0415** | **Ling-Lite-0220** | **Qwen2.5-7B-Instruct** |  **LLaMA3.1-8B** |  
-| :------------------: | :------------------: | :---------------: | :-------------------: | :----------------: | :----------------: |
+| :----------------: | :------------------: | :---------------: | :-------------------: | :----------------: | :----------------: |
 |    MMLU(EM)    | 5 |   74.87      |      71.27            |       74.26         |  68.67  |
 |      GPQA(Pass@1)       | 0 |  40.91     |         28.66         |       34.47         |  32.80  |
 |    HumanEval(Pass@1)    | 0 |  89.02     |        83.54          |       87.20         |  70.73  |
@@ -45,7 +45,7 @@ You can download the following table to see the various parameters for your use 
 |      **Model**       | **#Total Params** | **#Activated Params** | **Context Length** |                                                                        **Download**                                                                        |
 | :------------------: | :---------------: | :-------------------: | :----------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |    Ling-lite-base    |       16.8B       |         2.75B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite-base)     |
-|      Ling-lite       |       16.8B       |         2.75B         |        64K         |          [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)          |
+|      Ling-lite       |       16.8B       |         2.75B         |        128K         |          [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-lite) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-lite)          |
 |    Ling-plus-base    |       290B        |         28.8B         |        64K         |     [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus-base) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus-base)     |
 |      Ling-plus       |       290B        |         28.8B         |        64K         |          [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-plus) <br>[🤖 ModelScope](https://www.modelscope.cn/models/inclusionAI/Ling-plus)          |
 | Ling-coder-lite-base |       16.8B       |         2.75B         |        16K         | [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite-base) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite-base) |
