@@ -15,6 +15,22 @@ Their structure makes it easy to scale up and down and adapt to different tasks,
 
 As more developers and researchers engage with the platform, we can expect rapid advancements and improvements, leading to even more sophisticated applications. This collaborative approach accelerates development and ensures that the models remain at the forefront of technology, addressing emerging challenges in various fields.
 
+## Update
+
+Ling-lite is upgraded to Ling-lite-0415. The new model demonstrates notable improvements over its predecessor, Ling-lite-0220, especially on code and math.
+
+|      **Benmark**       | **Ling-Lite-0415** | **Ling-Lite-0220** | **Qwen2.5-7B-Instruct** |  
+| :------------------: | :---------------: | :-------------------: | :----------------: | 
+|    MMLU    |       74.87      |      71.23            |       74.26         |  
+|      GPQA       |    40.91     |         30.30         |       34.47         |  
+|    HumanEval    |    89.02     |        82.32          |       87.20         |  
+|      LiveCodeBench       |    35.78     |        28.59          |       16.96         |  
+| LCBench |   60.00      |        47.22          |                |  
+|   Math    |    79.12     |        72.34          |      73.66          |
+|   OlympiadBench    |     37.33    |       34.42           |                |
+|   BBH    |    74.58     |        66.38          |                |
+|   IFEval    |    81.09     |        79.41          |       71.16         |  
+
 ## Model Downloads
 
 You can download the following table to see the various parameters for your use case. If you are located in mainland China, we also provide the model on ModelScope.cn to speed up the download process.
@@ -31,6 +47,8 @@ You can download the following table to see the various parameters for your use 
 |   Ling-coder-lite    |       16.8B       |         2.75B         |        16K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite)      |
 
 </div>
+
+Note: Ling-lite has been upgrade to Ling-lite-0415. The previous version, Ling-lite-0220, can be found in branch `ling-lite-0220` in both Huggingface and ModelScope.
 
 ## Evaluation
 
