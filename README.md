@@ -21,7 +21,7 @@ Ling-lite is upgraded to Ling-lite-0415. The new model demonstrates notable impr
 
 <div align="center">
 
-|      **Benmark**       | **Ling-Lite-0415** | **Ling-Lite-0220** | **Qwen2.5-7B-Instruct** |  
+|      **Benchmark**       | **Ling-Lite-0415** | **Ling-Lite-0220** | **Qwen2.5-7B-Instruct** |  
 | :------------------: | :---------------: | :-------------------: | :----------------: | 
 |    MMLU    |       74.87      |      71.23            |       74.26         |  
 |      GPQA       |    40.91     |         30.30         |       34.47         |  
