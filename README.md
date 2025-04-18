@@ -15,6 +15,27 @@ Their structure makes it easy to scale up and down and adapt to different tasks,
 
 As more developers and researchers engage with the platform, we can expect rapid advancements and improvements, leading to even more sophisticated applications. This collaborative approach accelerates development and ensures that the models remain at the forefront of technology, addressing emerging challenges in various fields.
 
+## Update
+
+Ling-lite is upgraded to Ling-lite-0415. The new model demonstrates notable improvements over its predecessor, Ling-lite-0220, especially on code and math.
+
+<div align="center">
+
+|      **Benchmark**       |   **#shots**       | **Ling-Lite-0415** | **Ling-Lite-0220** | **Qwen2.5-7B-Instruct** |  **LLaMA3.1-8B** |  
+| :------------------: | :------------------: | :---------------: | :-------------------: | :----------------: | :----------------: |
+|    MMLU(EM)    | 5 |   74.87      |      71.27            |       74.26         |  68.67  |
+|      GPQA(Pass@1)       | 0 |  40.91     |         28.66         |       34.47         |  32.80  |
+|    HumanEval(Pass@1)    | 0 |  89.02     |        83.54          |       87.20         |  70.73  |
+|      LiveCodeBench 2408-2411 (Pass@1)      | 0 |    24.11     |        15.18          |       16.96         |  11.61  |
+| LCBench(pass@1) | 0 |   60.00      |        47.22          |      54.17          |  29.04  |
+|   Math(EM)    | 0 |    79.12     |        72.80          |      73.66          |  52.42  |
+|   AIME2024(pass@1)    | 0 |    13.33     |        6.67          |      16.67          |  0.00  |
+|   OlympiadBench(pass@1)    | 0 |     37.33    |       34.42           |      37.19          |  16.3  |
+|   BBH(EM)    | 0 |    74.58     |        66.38          |         66.07       |  68.05  |
+|   IFEval(Prompt Strict)   | 0 |    81.09     |        77.99          |       71.16         |  53.45  |
+
+</div>
+
 ## Model Downloads
 
 You can download the following table to see the various parameters for your use case. If you are located in mainland China, we also provide the model on ModelScope.cn to speed up the download process.
@@ -31,6 +52,8 @@ You can download the following table to see the various parameters for your use 
 |   Ling-coder-lite    |       16.8B       |         2.75B         |        16K         |      [🤗 HuggingFace](https://huggingface.co/inclusionAI/Ling-Coder-lite) <br>[🤖 ModelScope](https://modelscope.cn/models/inclusionAI/Ling-Coder-lite)      |
 
 </div>
+
+Note: Ling-lite has been upgrade to Ling-lite-0415. The previous version, Ling-lite-0220, can be found in branch `ling-lite-0220` in both Huggingface and ModelScope.
 
 ## Evaluation
 
