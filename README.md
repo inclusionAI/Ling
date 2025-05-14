@@ -175,12 +175,7 @@ For detailed guidance, please refer to the vLLM [`instructions`](https://docs.vl
 
 ### MindIE
 
-This topic describes the main steps to run an Ling MoE model based on Huawei NPU cards and the MindIE inference framework
-
-#### Hardware Requirements
-
-- The MoE Plus model requires at least 2 Atlas 800I A2 (8\*64G) servers.
-- The MoE Lite model requires at least 1 Atlas 800I A2 (8\*64G) server.
+This subject outlines the primary processes for executing a Ling MoE model with specified hardware and the MindIE inference framework.
 
 #### Configure preparation
 
